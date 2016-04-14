@@ -84,23 +84,36 @@
 var findParentByClassName = function(element, targetClass) {
     if (element.parentElement == null) {
         console.log("No parent found");
-    }
-        
-    else  {
+    } else  {
         var currentParent = element.parentElement;
-        while (currentParent.className != targetClass || currentParent == "<html>" ) {
+        console.log(currentParent);
+        // Loop through parents until the parent's class name is equal to the target class
+        while (currentParent.className != targetClass) {
+            console.log(currentParent);
             currentParent = currentParent.parentElement;
+            // if current parent is null, log no parent found and stop the loop
+            if (currentParent == null){
+                console.log("no Parent found with that class name");
+                return;
+            }
         }
-        if (currentParent.className == targetClass){
-            return currentParent;
-        }
-        else {
-            console.log("No parent found with that class name");
-        }
-    }
+        console.log("it's working fine");
+        return currentParent;
+    } 
 };
 
-
+/* BLOC SOLUTION
+var findParentByClassName = function(element, targetClass) {
+    if (element) {
+        var currentParent = element.parentElement;
+        while (currentParent.className != targetClass) {
+            currentParent = currentParent.parentElement;
+        }
+        return currentParent;
+    }
+    
+};
+*/
 
 
 var getSongItem = function(element) {
@@ -152,9 +165,11 @@ var getSongItem = function(element) {
 
 
  window.onload = function() {
-     setCurrentAlbum(albumPicasso);
 
+     setCurrentAlbum(albumPicasso);
+     
      songListContainer.addEventListener('mouseover', function(event) {
+         console.log("hover");
          if (event.target.parentElement.className === 'album-view-song-item') {
             var songItem = getSongItem(event.target);
 
@@ -184,6 +199,8 @@ var getSongItem = function(element) {
          });
 
      }
+    findParentByClassName(songListContainer, 'test');
+
 
  };
 
